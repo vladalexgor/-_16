@@ -29,23 +29,19 @@ namespace Задание_16_App2
             {
                 string jsonString = sr.ReadToEnd();
                 Console.WriteLine(jsonString);
-                string A = "";
+                string group = "";
                 string[] a = jsonString.Split('\r', '\n');
                 foreach (string n in a)
                 {
-                    A += n;
+                    group += n;
                 }
-                string[] array = A.Split('}');
+                string[] array = group.Split('}');
                 foreach (string n in array)
                 {
                     if (n != " ")
                     {
                         string jS = n + '}';
-                        JsonSerializerOptions options = new JsonSerializerOptions()
-                        {
-                            Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic)
-                        };
-                        Product product = JsonSerializer.Deserialize<Product>(jS, options);
+                        Product product = JsonSerializer.Deserialize<Product>(jS);
                         if (product.PriceProduct > pP)
                         {
                             pP = product.PriceProduct;

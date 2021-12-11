@@ -53,30 +53,7 @@ namespace Задание_16
             }
             Console.WriteLine("Для завершения программы нажмите любую клавишу.");
             Console.ReadKey();
-
-            /*string jsonString = "{\"firstName\":\"Tom\",\"lastName\":\"Jackson\",\"gender\":\"male\",\"age\":29,\"online\":true,\"hobby\":[\"football\",\"reading\",\"swimming\"]}";
-            Person person = JsonSerializer.Deserialize<Person>(jsonString);
-            Person person1 = new Person()
-            {
-                FirstName = "Иван",
-                LastName = "Иванов",
-                Gender = "муж",
-                Age = 25,
-                Online = false,
-                Hobby = new string[] { "Читать", "Спать" }
-            };
-            JsonSerializerOptions options = new JsonSerializerOptions()
-            {
-                Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic),
-                WriteIndented = true
-            };
-
-            string jsonString1 = JsonSerializer.Serialize(person1, options);
-            Console.WriteLine(jsonString1);
-            Console.ReadKey();*/
         }
-
-
         class Product
         {
             [JsonPropertyName("Код товара")]
@@ -85,24 +62,6 @@ namespace Задание_16
             public string NameProduct { get; set; }
             [JsonPropertyName("Цена товара")]
             public double PriceProduct { get; set; }
-
         }
-
-        /*class Person
-        {
-            [JsonPropertyName("firstName")]
-            public string FirstName { get; set; }
-            [JsonPropertyName("lastName")]
-            public string LastName { get; set; }
-            [JsonPropertyName("gender")]
-            public string Gender { get; set; }
-            [JsonPropertyName("age")]
-            public int Age { get; set; }
-            [JsonPropertyName("online")]
-            [JsonIgnore]
-            public bool Online { get; set; }
-            [JsonPropertyName("hobby")]
-            public string[] Hobby { get; set; }
-        }*/
     }
 }

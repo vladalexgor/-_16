@@ -14,14 +14,9 @@ namespace Тест
     {
         static void Main(string[] args)
         {
-            string jsonString = "{\"Код товара\":1,\n\"Название товара\": \"a\", \"Цена товара\": 125}";
-            JsonSerializerOptions options = new JsonSerializerOptions()
-            {
-                Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic)
-            };
-            Product product = JsonSerializer.Deserialize<Product>(jsonString, options);
+            string jsonString = "{\r\n  \"Код товара\": 1,\r\n  \"Название товара\": \"a\",\r\n  \"Цена товара\": 125\r\n}";
+            Product product = JsonSerializer.Deserialize<Product>(jsonString);
             Console.WriteLine(product.NameProduct);
-
             Console.WriteLine("Для завершения программы нажмите любую клавишу.");
             Console.ReadKey();
         }
