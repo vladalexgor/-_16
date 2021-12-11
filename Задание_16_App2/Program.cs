@@ -20,31 +20,52 @@ namespace Задание_16_App2
         {
             Console.WriteLine("Введите полный путь к файлу:");
             string path1 = Console.ReadLine();
-            string path2 = "Products.json";
-            string path = path1 + "\\" + path2;
+            string name = "Products.json";
+            string path = path1 + "\\" + name;
+            //nP - название самого дорогого товара, pP - цена товара
+            string nP = "";
+            double pP = 0;
             using (StreamReader sr = new StreamReader(path))
             {
-                string text = sr.ReadToEnd();
-                string[] array = text.Split('\n');
-                foreach (string row in rowArray)
+                string jsonString = sr.ReadToEnd();
+                Console.WriteLine(jsonString);
+                string A = "";
+                string[] a = jsonString.Split('\r', '\n');
+                foreach (string n in a)
                 {
-                    string[] wordArray = row.Split(' ');
-                    wordNumber += wordArray.Length;
+                    A += n;
                 }
-                symbolNumber = text.Length;
-            }
-            using (StreamReader sr = new StreamReader(path))
-            {
-                string m = sr.ReadToEnd();
-                string[] stringArray = m.Split();
-                for (int i = 0; i < n; i++)
+                string[] array = A.Split('}');
+                foreach (string n in array)
                 {
-                    int d = Convert.ToInt32(stringArray[i]);
-                    sum += d;
+                    if (n != " ")
+                    {
+                        string jS = n + '}';
+                        JsonSerializerOptions options = new JsonSerializerOptions()
+                        {
+                            Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic)
+                        };
+                        Product product = JsonSerializer.Deserialize<Product>(jS, options);
+                        if (product.PriceProduct > pP)
+                        {
+                            pP = product.PriceProduct;
+                            nP = product.NameProduct;
+                        }
+                    }
                 }
             }
+            Console.WriteLine("Самый дорогой товар: {0}", nP);
             Console.WriteLine("Для завершения программы нажмите любую клавишу.");
             Console.ReadKey();
         }
+    }
+    class Product
+    {
+        [JsonPropertyName("Код товара")]
+        public int CodeProduct { get; set; }
+        [JsonPropertyName("Название товара")]
+        public string NameProduct { get; set; }
+        [JsonPropertyName("Цена товара")]
+        public double PriceProduct { get; set; }
     }
 }
