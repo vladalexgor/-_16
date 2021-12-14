@@ -9,7 +9,7 @@ using System.Text.Unicode;
 using System.Text.Json.Serialization;
 using System.IO;
 
-namespace Задание_16_App1
+namespace Задание_16_App1_v2
 {
     class Program
     {
@@ -21,29 +21,29 @@ namespace Задание_16_App1
         {
             try
             {
-                Console.WriteLine("Введите директорию любой папки на своем компе, в которой будет создан файл \"Products.json\":");
+                Console.WriteLine("Введите директорию любой папки на своем компе, в которой будет создан файл \"Products_v2.json\":");
                 string pathCatalogue = Console.ReadLine();
-                string fileName = "Products.json";
+                string fileName = "Products_v2.json";
                 string path = pathCatalogue + "\\" + fileName;
                 Console.WriteLine("Введите последовательно информацию о пяти товарах со свойствами \"Код товара\", \"Название товара\", \"Цена товара\":");
+                Product[] products = new Product[5];
                 for (int i = 0; i < 5; i++)
                 {
-                    Product x = new Product()
+                    products[i] = new Product()
                     {
                         CodeProduct = Convert.ToInt32(Console.ReadLine()),
                         NameProduct = Console.ReadLine(),
                         PriceProduct = Convert.ToDouble(Console.ReadLine())
                     };
-                    JsonSerializerOptions options = new JsonSerializerOptions()
-                    {
-                        Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic),
-                        WriteIndented = true
-                    };
-                    string jsonString = JsonSerializer.Serialize(x, options);
-                    using (StreamWriter sw = new StreamWriter(path, true))
-                    {
-                        sw.WriteLine("{0}", jsonString);
-                    }
+                }
+                JsonSerializerOptions options = new JsonSerializerOptions()
+                {
+                    Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic)
+                };
+                string jsonString = JsonSerializer.Serialize(products, options);
+                using (StreamWriter sw = new StreamWriter(path))
+                {
+                    sw.WriteLine("{0} ", jsonString);
                 }
             }
             catch (Exception ex)
